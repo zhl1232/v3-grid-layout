@@ -1,0 +1,31 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "eslint.autoFixOnSave": true,
+    "source.fixAll": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "css.validate": false,
+  "eslint.validate": ["javascript", "javascriptreact", "typescript"],
+  "stylelint.validate": ["css", "less", "postcss", "scss", "vue", "sass"],
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "mervin.markdown-formatter"
+  },
+  "vue3snippets.enable-compile-vue-file-on-did-save-code": false,
+  "prettier.singleQuote": true,
+  "files.eol": "\n"
+}
