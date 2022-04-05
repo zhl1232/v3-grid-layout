@@ -1,29 +1,31 @@
 {
   "name": "v3-grid-layout",
-  "version": "1.0.0-bate.9",
+  "version": "1.0.1",
   "private": false,
   "license": "MIT",
   "main": "dist/v3-grid-layout.umd.js",
   "module": "dist/v3-grid-layout.es.js",
-  "types": "dist/lib/main.d.ts",
+  "types": "dist/index.d.ts",
   "style": "dist/style.css",
   "files": [
     "dist"
   ],
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build:doc": "vuepress build docs",
+    "build:doc": "build-storybook",
     "build:lib": "vue-tsc --noEmit && vite build --config ./build/lib.config.ts",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "start-storybook -p 6006"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:zhl1232/v3-grid-layout.git"
   },
   "dependencies": {
     "@vueuse/core": "^8.1.2",
     "interactjs": "^1.10.11",
-    "mitt": "^3.0.0",
-    "vue": "3.2.26"
+    "mitt": "^3.0.0"
   },
   "devDependencies": {
+    "vue": "3.2.26",
     "@babel/core": "^7.17.8",
     "@storybook/addon-actions": "^6.4.20",
     "@storybook/addon-docs": "^6.4.20",
