@@ -3585,8 +3585,18 @@ function createCoreData(lastX, lastY, x, y) {
     y
   };
 }
-var GridItem_vue_vue_type_style_index_0_lang = "";
-const _sfc_main$1 = /* @__PURE__ */ defineComponent({
+var GridItem_vue_vue_type_style_index_0_scoped_true_lang = "";
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+const __default__ = {
+  name: "grid-item"
+};
+const _sfc_main$1 = /* @__PURE__ */ defineComponent(__spreadProps(__spreadValues({}, __default__), {
   props: {
     isDraggable: {
       type: Boolean,
@@ -3797,7 +3807,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
       const compact2 = () => {
         createStyle();
       };
-      const compactHandler = (layout) => {
+      const compactHandler = () => {
         compact2();
       };
       eventBus.on("compact", compactHandler);
@@ -4080,7 +4090,7 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
         class: normalizeClass(["vue-grid-item", unref(classObj)]),
         style: normalizeStyle(unref(style).data)
       }, [
-        renderSlot(_ctx.$slots, "default"),
+        renderSlot(_ctx.$slots, "default", {}, void 0, true),
         unref(resizableAndNotStatic) ? (openBlock(), createElementBlock("span", {
           key: 0,
           ref: "handle",
@@ -4089,7 +4099,8 @@ const _sfc_main$1 = /* @__PURE__ */ defineComponent({
       ], 6);
     };
   }
-});
+}));
+var GridItem = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-faa57b50"]]);
 function getBreakpointFromWidth(breakpoints, width) {
   const sorted = sortBreakpoints(breakpoints);
   let matching = sorted[0];
@@ -4193,7 +4204,7 @@ function useResizeObserver(target, callback, options = {}) {
 }
 var _a, _b;
 isClient && (window == null ? void 0 : window.navigator) && ((_a = window == null ? void 0 : window.navigator) == null ? void 0 : _a.platform) && /iP(ad|hone|od)/.test((_b = window == null ? void 0 : window.navigator) == null ? void 0 : _b.platform);
-var GridLayout_vue_vue_type_style_index_0_lang = "";
+var GridLayout_vue_vue_type_style_index_0_scoped_true_lang = "";
 const _sfc_main = /* @__PURE__ */ defineComponent({
   props: {
     autoSize: {
@@ -4506,8 +4517,8 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
         class: "vue-grid-layout",
         style: normalizeStyle(mergedStyle.value)
       }, [
-        renderSlot(_ctx.$slots, "default"),
-        withDirectives(createVNode(_sfc_main$1, {
+        renderSlot(_ctx.$slots, "default", {}, void 0, true),
+        withDirectives(createVNode(GridItem, {
           ref: "gridItem",
           class: "vue-grid-placeholder",
           x: unref(placeholder).x,
@@ -4522,10 +4533,11 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
     };
   }
 });
+var GridLayout = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-25c842bc"]]);
 const GridLayoutPlugin = {
   install(app) {
-    app.component("grid-item", _sfc_main$1);
-    app.component("grid-layout", _sfc_main);
+    app.component("grid-item", GridItem);
+    app.component("grid-layout", GridLayout);
   }
 };
-export { GridLayoutPlugin, _sfc_main as default };
+export { GridItem, GridLayout, GridLayoutPlugin as default };

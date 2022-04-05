@@ -1,16 +1,15 @@
-import baseConfig from './base.config'
 import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
-  ...baseConfig,
+  plugins: [dts(), vue()],
   build: {
     outDir: 'dist',
     lib: {
       entry: resolve(__dirname, '../packages/index.ts'),
-      name: 'v3-grid-layout',
-      fileName: format => `v3-grid-layout.${format}.js`
+      name: 'v3-grid-layout'
     },
     rollupOptions: {
       // 确保外部化处理那些你不想打包进库的依赖
@@ -22,6 +21,5 @@ export default defineConfig({
         }
       }
     }
-  },
-  plugins: [...(baseConfig as any).plugins, dts()]
+  }
 })

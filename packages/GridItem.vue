@@ -5,7 +5,7 @@
     <!--<span v-if="draggable" ref="dragHandle" class="vue-draggable-handle"></span>-->
   </div>
 </template>
-<script lang="ts">
+<script lang="ts" setup>
 import { computed, inject, nextTick, onMounted, reactive, ref, toRef, watch } from 'vue'
 import type { Interactable } from '@interactjs/core/Interactable'
 import interact from 'interactjs'
@@ -27,8 +27,6 @@ import {
 } from './helpers/utils'
 import { createCoreData, getControlPosition } from './helpers/draggable-utils'
 import { Emitter, EventType } from 'mitt'
-</script>
-<script lang="ts" setup>
 const eventBus = inject(eventBusKey) as Emitter<Record<EventType, unknown>>
 
 const emit = defineEmits(['container-resized', 'resize', 'resized', 'move', 'moved'])
@@ -280,7 +278,7 @@ onMounted(() => {
   const compact = () => {
     createStyle()
   }
-  const compactHandler = (layout: any) => {
+  const compactHandler = () => {
     compact()
   }
   eventBus.on('compact', compactHandler)
@@ -638,7 +636,12 @@ watch(
   // { immediate: true }
 )
 </script>
-<style>
+<script lang="ts">
+export default {
+  name: 'grid-item'
+}
+</script>
+<style scoped>
 .vue-grid-item {
   transition: all 200ms ease;
   transition-property: left top, right;
