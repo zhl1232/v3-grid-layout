@@ -1,6 +1,6 @@
 import { App, Plugin } from 'vue'
-import GridItem from './GridItem.vue'
-import GridLayout from './GridLayout.vue'
+import GridItem from './GridItem'
+import GridLayout from './GridLayout'
 
 export { GridItem, GridLayout }
 const GridLayoutPlugin: Plugin = {

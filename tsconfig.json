@@ -13,11 +13,15 @@
     "declaration": true,
     "skipLibCheck": true,
     "outDir": "dist",
+    "jsx": "preserve",
     "types": [
       "vite/client", // if using vite
       // ...
     ]
   },
-  "include": ["packages/**/*.ts", "packages/**/*.vue"],
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

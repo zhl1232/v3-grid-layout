@@ -1,6 +1,6 @@
 const {
   defineConfig
-} = require('eslint-define-config');
+} = require('eslint-define-config')
 
 module.exports = defineConfig({
   root: true,
@@ -212,5 +212,4 @@ module.exports = defineConfig({
     'object-curly-newline': [0],
     complexity: [0, 15]
   }
-});
-export const extends = ["plugin:storybook/recommended"];
+})
