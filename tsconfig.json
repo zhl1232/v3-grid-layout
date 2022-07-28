@@ -12,7 +12,11 @@
     "noUnusedParameters": true,
     "declaration": true,
     "skipLibCheck": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": [
+      "vite/client", // if using vite
+      // ...
+    ]
   },
   "include": ["packages/**/*.ts", "packages/**/*.vue"],
   "exclude": ["node_modules", "dist"]
