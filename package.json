@@ -1,10 +1,10 @@
 {
   "name": "vue-grid-layout-next",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": false,
   "license": "MIT",
-  "main": "dist/v3-grid-layout.umd.js",
-  "module": "dist/v3-grid-layout.es.js",
+  "main": "dist/vue-grid-layout-next.umd.js",
+  "module": "dist/vue-grid-layout-next.es.js",
   "types": "dist/index.d.ts",
   "style": "dist/style.css",
   "files": [
