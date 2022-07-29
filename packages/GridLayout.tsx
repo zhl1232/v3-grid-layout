@@ -29,7 +29,7 @@ import {
 } from './helpers/responsive-utils'
 import GridItem from './GridItem'
 import { useResizeObserver } from '@vueuse/core'
-import { nextTick, onBeforeUnmount, onMounted, PropType, provide, reactive, ref, toRef, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, provide, reactive, ref, toRef, watch } from 'vue'
 import { propsGridLayout as props } from './props';
 import './GridLayout.css'
 import mitt from 'mitt'

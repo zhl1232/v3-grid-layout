@@ -1,5 +1,5 @@
 import { PropType } from 'vue';
-import { Layout } from '@/components/vue-gird-layout/helpers/utils';
+import { Layout } from './helpers/utils';
 
 export const propsGridLayout = {
   /**
@@ -122,11 +122,11 @@ export const propsGridLayout = {
 export const propsGridItem = {
   isDraggable: {
     type: Boolean,
-    default: null,
+    default: false,
   },
   isResizable: {
     type: Boolean,
-    default: null,
+    default: false,
   },
   static: {
     type: Boolean,
@@ -174,7 +174,7 @@ export const propsGridItem = {
   },
   dragAllowFrom: {
     type: String,
-    default: null,
+    default: '',
   },
   resizeIgnoreFrom: {
     type: String,
