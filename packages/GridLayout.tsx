@@ -32,7 +32,6 @@ import { useResizeObserver } from '@vueuse/core'
 import { nextTick, onBeforeUnmount, onMounted, PropType, provide, reactive, ref, toRef, watch } from 'vue'
 import { propsGridLayout as props } from './props';
 import './GridLayout.css'
-import Bus from '@/utils/Bus'
 import mitt from 'mitt'
 import { Emitter, EventType } from 'mitt';
 

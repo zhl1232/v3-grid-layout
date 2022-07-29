@@ -125,6 +125,7 @@ export function compactItem(compareWith: Layout, l: LayoutItem, verticalCompact:
   }
 
   // Move it down, and keep moving it down if it's colliding.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   let collides = {} as LayoutItem | void;
   while ((collides = getFirstCollision(compareWith, l))) {
     l.y = collides.y + collides.h;
@@ -334,7 +335,8 @@ export function setTransform(top: number, left: number, width: number, height: n
  * @param right
  * @param width
  * @param height
- * @returns {{transform: string, WebkitTransform: string, MozTransform: string, msTransform: string, OTransform: string, width: string, height: string, position: string}}
+ * @returns {{transform: string, WebkitTransform: string, MozTransform: string,
+ * msTransform: string, OTransform: string, width: string, height: string, position: string}}
  */
 export function setTransformRtl(top: number, right: number, width: number, height: number) {
   // Replace unitless items with px
@@ -412,6 +414,7 @@ export function validateLayout(layout: Layout, contextName = 'Layout'): void {
   if (!Array.isArray(layout)) throw new Error(`${contextName} must be an array!`);
   for (let i = 0, len = layout.length; i < len; i++) {
     const item = layout[i];
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let j = 0; j < subProps.length; j++) {
       if (typeof item[subProps[j] as keyof LayoutItem] !== 'number') {
         throw new Error(`VueGridLayout: ${contextName}[${i}].${subProps[j]} must be a number!`);
