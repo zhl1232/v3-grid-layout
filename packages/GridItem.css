@@ -1,8 +1,7 @@
 
 .vue-grid-item {
     transition: all 200ms ease;
-    transition-property: left top, right;
-
+    transition-property: all;
     /* add right for rtl */
 }
 

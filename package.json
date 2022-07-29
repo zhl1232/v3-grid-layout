@@ -10,7 +10,13 @@
   "files": [
     "dist"
   ],
-  "keywords": ["vue3","vue-next","grid-layout","vue-grid-layout","vue3-grid-layout"],
+  "keywords": [
+    "vue3",
+    "vue-next",
+    "grid-layout",
+    "vue-grid-layout",
+    "vue3-grid-layout"
+  ],
   "description": "vue3 版本的 vue3-grid-layout，预备用tsx写一版",
   "scripts": {
     "start": "vite --host=localhost --port=9018",
@@ -20,9 +26,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:zhl1232/v3-grid-layout.git"
+    "url": "git@github.com/zhoulujun/v3-grid-layout.git "
   },
   "dependencies": {
+    "@blueking/eslint-config-bk": "^2.1.0-beta.7",
+    "@blueking/stylelint-config-bk": "^2.0.0",
     "@vueuse/core": "^8.1.2",
     "interactjs": "^1.10.11",
     "mitt": "^3.0.0",
@@ -47,15 +55,6 @@
     "@vue/babel-plugin-jsx": "^1.1.1",
     "@vue/compiler-sfc": "^3.2.37",
     "babel-loader": "^8.2.5",
-    "eslint": "^8.11.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-define-config": "^1.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-storybook": "^0.5.7",
-    "eslint-plugin-vue": "^8.5.0",
-    "stylelint": "^14.6.0",
-    "stylelint-config-recess-order": "^3.0.0",
-    "stylelint-config-recommended-vue": "^1.4.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.3",
     "vite-plugin-copy": "^0.1.6",

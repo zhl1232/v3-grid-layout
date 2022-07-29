@@ -46,7 +46,7 @@ export default defineComponent({
                             <div class="toolbox">drag</div>
                             <div class="item">
                                 <div>{ item.i }</div>
-                                <div>static:{ item.static }</div>
+                                <div>static:{ String(item.static) }</div>
                             </div>
                         </div>
                     </GridItem>
