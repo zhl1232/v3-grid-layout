@@ -1,8 +1,8 @@
 import { App, Plugin } from 'vue';
 import GridItem from './GridItem';
 import GridLayout from './GridLayout';
-
-export { GridItem, GridLayout };
+import { eventBusKey } from './helpers/utils';
+export { GridItem, GridLayout, eventBusKey };
 const GridLayoutPlugin: Plugin = {
   install(app: App) {
     app.component('GridItem', GridItem);

@@ -24,8 +24,7 @@ app.use(GridLayout).mount("#app")
 jsx
 ```typescript
 import { defineComponent,ref } from 'vue'
-import { GridLayout, GridItem } from '../packages/index'
-// import { eventBusKey } from '@/components/vue-gird-layout/helpers/utils';
+import { GridItem, GridLayout, eventBusKey } from 'vue-grid-layout-next';
 // import Bus from '@/utils/Bus';
 export default defineComponent({
     name: 'App',
