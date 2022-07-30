@@ -18,7 +18,7 @@
     "vue-grid-layout",
     "vue3-grid-layout"
   ],
-  "description": "vue3 版本的 vue3-grid-layout，预备用tsx写一版",
+  "description": "vue3 版本的 vue3-grid-layout，tsx适配版本",
   "scripts": {
     "start": "vite --host=localhost --port=9018",
     "build:doc": "build-storybook",
