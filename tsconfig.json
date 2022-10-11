@@ -1,5 +1,13 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "pretty": true,
+    "allowSyntheticDefaultImports": true,
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
@@ -10,10 +18,17 @@
     "esModuleInterop": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "declaration": true,
     "skipLibCheck": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "jsx": "preserve",
+    "types": [
+      "vite/client", // if using vite
+      // ...
+    ]
   },
-  "include": ["packages/**/*.ts", "packages/**/*.vue"],
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }

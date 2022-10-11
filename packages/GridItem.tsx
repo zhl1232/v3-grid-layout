@@ -1,11 +1,3 @@
-<template>
-  <div ref="itemContainer" class="vue-grid-item" :class="classObj" :style="style.data">
-    <slot></slot>
-    <span v-if="resizableAndNotStatic" ref="handle" :class="resizableHandleClass"></span>
-    <!--<span v-if="draggable" ref="dragHandle" class="vue-draggable-handle"></span>-->
-  </div>
-</template>
-<script lang="ts">
 import { defineComponent, computed, inject, nextTick, onMounted, reactive, ref, toRef, watch } from 'vue';
 import type { Interactable } from '@interactjs/core/Interactable';
 import interact from 'interactjs';
@@ -28,71 +20,10 @@ import {
 import { createCoreData, getControlPosition } from './helpers/draggable-utils';
 import { Emitter, EventType } from 'mitt';
 import './GridItem.css';
-
+import { propsGridItem as props } from './props';
 export default defineComponent({
   name: 'GridItem',
-  props: {
-    isDraggable: {
-      type: Boolean,
-      default: null,
-    },
-    isResizable: {
-      type: Boolean,
-      default: null,
-    },
-    static: {
-      type: Boolean,
-      default: false,
-    },
-    minH: {
-      type: Number,
-      default: 1,
-    },
-    minW: {
-      type: Number,
-      default: 1,
-    },
-    maxH: {
-      type: Number,
-      default: Infinity,
-    },
-    maxW: {
-      type: Number,
-      default: Infinity,
-    },
-    x: {
-      type: Number,
-      required: true,
-    },
-    y: {
-      type: Number,
-      required: true,
-    },
-    w: {
-      type: Number,
-      required: true,
-    },
-    h: {
-      type: Number,
-      required: true,
-    },
-    i: {
-      type: [Number, String],
-      required: true,
-    },
-    dragIgnoreFrom: {
-      type: String,
-      default: 'a, button',
-    },
-    dragAllowFrom: {
-      type: String,
-      default: null,
-    },
-    resizeIgnoreFrom: {
-      type: String,
-      default: 'a, button',
-    },
-  },
+  props,
   emits: ['container-resized', 'resize', 'resized', 'move', 'moved'],
   setup(props, { emit }) {
     const eventBus = inject(eventBusKey) as Emitter<Record<EventType, unknown>>;
@@ -128,8 +59,8 @@ export default defineComponent({
     const handle = ref<HTMLElement | null>(null);
     let interactObj: Interactable;
     /**
-     * 拖拽设置函数
-     */
+         * 拖拽设置函数
+         */
     function tryMakeDraggable() {
       interactObj = interactObj ?? interact(itemContainer.value as HTMLElement);
       if (draggable.value && !props.static) {
@@ -152,12 +83,12 @@ export default defineComponent({
       }
     }
     /**
-     * 是否正在拖拽状态
-     */
+         * 是否正在拖拽状态
+         */
     const isDragging = ref(false);
     /**
-     * 是否可拖拽
-     */
+         * 是否可拖拽
+         */
     const draggable = toRef(props, 'isDraggable').value ? toRef(props, 'isDraggable') : inject(isDraggableKey, ref(true));
     nextTick(() => {
       watch(
@@ -170,8 +101,8 @@ export default defineComponent({
     });
 
     /**
-     * 缩放设置函数
-     */
+         * 缩放设置函数
+         */
     function tryMakeResizable() {
       interactObj = interactObj ?? interact(itemContainer.value as HTMLElement);
       if (draggable.value && !props.static) {
@@ -211,8 +142,8 @@ export default defineComponent({
       }
     }
     /**
-     * 是否正在缩放状态
-     */
+         * 是否正在缩放状态
+         */
     const isResizing = ref(false);
     // 是否可缩放
     const resizable = toRef(props, 'isResizable').value ? toRef(props, 'isResizable') : inject(isResizableKey, ref(true));
@@ -414,7 +345,7 @@ export default defineComponent({
           break;
         }
         default:
-          // ...
+                // ...
       }
       // Get new XY
       let pos = null;
@@ -469,12 +400,12 @@ export default defineComponent({
       return out;
     }
     /**
-     * Given a height and width in pixel values, calculate grid units.
-     * @param  {Number} height Height in pixels.
-     * @param  {Number} width  Width in pixels.
-     * @param  {Boolean} autoSizeFlag  function autoSize identifier.
-     * @return {Object} w, h as grid units.
-     */
+         * Given a height and width in pixel values, calculate grid units.
+         * @param  {Number} height Height in pixels.
+         * @param  {Number} width  Width in pixels.
+         * @param  {Boolean} autoSizeFlag  function autoSize identifier.
+         * @return {Object} w, h as grid units.
+         */
     const calcWH = (height: number, width: number, autoSizeFlag = false) => {
       const colWidth = calcColWidth();
       // width = colWidth * w - (margin * (w - 1))
@@ -531,7 +462,7 @@ export default defineComponent({
           break;
         }
         default:
-          // ...
+                // ...
       }
       // Get new WH
       pos = calcWH(newSize.height, newSize.width);
@@ -636,8 +567,20 @@ export default defineComponent({
       itemContainer,
       handle,
       dragging,
+      calcXY,
     };
   },
+  render() {
+    return (
+            <div
+                ref="itemContainer"
+                class={this.classObj}
+                style={this.style.data}>
+                {this.$slots.default?.()}
+                {this.resizableAndNotStatic ? (
+                    <span ref="handle" class={this.resizableHandleClass}></span>
+                ) : ''}
+            </div>
+    );
+  },
 });
-
-</script>
