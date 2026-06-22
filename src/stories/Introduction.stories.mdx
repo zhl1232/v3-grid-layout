@@ -13,12 +13,12 @@ Canvas 可以按 D 调出参数控制面板。
 
 ### PNPM
 ```
-pnpm install v3-grid-layout --save
+pnpm install vue-grid-layout-next --save
 ```
 
 ### Yarn
 ```
-yarn add v3-grid-layout
+yarn add vue-grid-layout-next
 ```
 
 # 使用
@@ -28,17 +28,17 @@ yarn add v3-grid-layout
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
-import GridLayout from 'v3-grid-layout'
-import 'v3-grid-layout/dist/style.css'
+import GridLayout from 'vue-grid-layout-next'
+import 'vue-grid-layout-next/dist/style.css'
 const app = createApp(App)
 app.use(GridLayout).mount("#app")
 ```
 2. 局部注册
 ```html
 <script setup lang="ts">
-import { GridItem, GridLayout } from "v3-grid-layout";
-import type { Layout } from "v3-grid-layout/dist/helpers/utils";
-import "v3-grid-layout/dist/style.css";
+import { GridItem, GridLayout } from "vue-grid-layout-next";
+import type { Layout } from "vue-grid-layout-next/dist/helpers/utils";
+import "vue-grid-layout-next/dist/style.css";
 const layout: Layout = [
   { x: 0, y: 0, w: 2, h: 2, i: "0", static: false, minH: 5 },
   { x: 2, y: 0, w: 2, h: 4, i: "1", static: true },

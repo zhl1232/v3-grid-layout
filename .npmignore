@@ -1,5 +1,14 @@
 .storybook
 .vscode
 /build
-/packages
 /src
+*.config.js
+*.config.ts
+.eslintrc.js
+.stylelintrc.js
+.prettierrc
+.prettierignore
+.eslintignore
+.stylelintignore
+tsconfig.json
+.gitignore

@@ -1,11 +1,8 @@
-// @ts-nocheck
 import { cloneLayout, compact, correctBounds } from './utils';
-
 import type { Layout } from './utils';
-export type ResponsiveLayout = { lg?: Layout; md?: Layout; sm?: Layout; xs?: Layout; xxs?: Layout };
+export type ResponsiveLayout = Record<string, Layout | undefined>;
 type Breakpoint = string;
-type Breakpoints = { lg?: number; md?: number; sm?: number; xs?: number; xxs?: number };
-type BreakpointsKey = keyof Required<Breakpoints>;
+type Breakpoints = Record<string, number>;
 /**
  * Given a width, find the highest breakpoint that matches is valid for it (width > breakpoint).
  *
@@ -56,7 +53,7 @@ export function findOrGenerateResponsiveLayout(
   layouts: ResponsiveLayout,
   breakpoints: Breakpoints,
   breakpoint: Breakpoint,
-  lastBreakpoint: Breakpoint,
+  _lastBreakpoint: Breakpoint,
   cols: number,
   verticalCompact: boolean,
 ): Layout {
@@ -80,9 +77,9 @@ export function findOrGenerateResponsiveLayout(
 
 export function generateResponsiveLayout(
   layout: Layout,
-  breakpoints: Breakpoints,
-  breakpoint: Breakpoint,
-  lastBreakpoint: Breakpoint,
+  _breakpoints: Breakpoints,
+  _breakpoint: Breakpoint,
+  _lastBreakpoint: Breakpoint,
   cols: number,
   verticalCompact: boolean,
 ): Layout {
@@ -111,6 +108,6 @@ export function generateResponsiveLayout(
  * @return {Array}              Sorted breakpoints.
  */
 export function sortBreakpoints(breakpoints: Breakpoints): Array<Breakpoint> {
-  const keys = Object.keys(breakpoints) as Array<BreakpointsKey>;
+  const keys = Object.keys(breakpoints);
   return keys.sort((a, b) => breakpoints[a] - breakpoints[b]);
 }

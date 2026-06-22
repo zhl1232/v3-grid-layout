@@ -38,14 +38,21 @@ export function bottom(layout: Layout): number {
 
 // Fast path to cloning, since this is monomorphic
 export function cloneLayoutItem(layoutItem: LayoutItem): LayoutItem {
-  /* return {
-    w: layoutItem.w, h: layoutItem.h, x: layoutItem.x, y: layoutItem.y, i: layoutItem.i,
-    minW: layoutItem.minW, maxW: layoutItem.maxW, minH: layoutItem.minH, maxH: layoutItem.maxH,
-    moved: Boolean(layoutItem.moved), static: Boolean(layoutItem.static),
-    // These can be null
-    isDraggable: layoutItem.isDraggable, isResizable: layoutItem.isResizable
-  };*/
-  return JSON.parse(JSON.stringify(layoutItem));
+  return {
+    w: layoutItem.w,
+    h: layoutItem.h,
+    x: layoutItem.x,
+    y: layoutItem.y,
+    i: layoutItem.i,
+    minW: layoutItem.minW,
+    maxW: layoutItem.maxW,
+    minH: layoutItem.minH,
+    maxH: layoutItem.maxH,
+    moved: Boolean(layoutItem.moved),
+    static: Boolean(layoutItem.static),
+    isDraggable: layoutItem.isDraggable,
+    isResizable: layoutItem.isResizable,
+  };
 }
 
 /**
@@ -89,6 +96,10 @@ export function compact(layout: Layout, verticalCompact: boolean): Layout {
   const sorted = sortLayoutItemsByRowCol(layout);
   // Holding for new items.
   const out = Array(layout.length);
+  const indexById = new Map<string | number, number>();
+  for (let i = 0, len = layout.length; i < len; i++) {
+    indexById.set(layout[i].i, i);
+  }
 
   for (let i = 0, len = sorted.length; i < len; i++) {
     let l = sorted[i];
@@ -103,7 +114,7 @@ export function compact(layout: Layout, verticalCompact: boolean): Layout {
     }
 
     // Add to output array to make sure they still come out in the right order.
-    out[layout.indexOf(l)] = l;
+    out[indexById.get(l.i)!] = l;
 
     // Clear moved flag, if it exists.
     l.moved = false;

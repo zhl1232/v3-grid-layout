@@ -8,40 +8,46 @@
   "types": "dist/index.d.ts",
   "style": "dist/style.css",
   "files": [
-    "dist",
-    "packages"
+    "dist"
   ],
   "keywords": [
     "vue3",
     "vue-next",
     "grid-layout",
     "vue-grid-layout",
-    "vue3-grid-layout"
+    "vue3-grid-layout",
+    "v3-grid-layout"
   ],
-  "description": "vue3 版本的 vue3-grid-layout，tsx适配版本",
+  "description": "Vue 3 draggable and resizable grid layout component library",
   "scripts": {
     "start": "vite --host=localhost --port=9018",
     "build:doc": "build-storybook",
     "build:lib": "vue-tsc --noEmit && vite build --config ./build/lib.config.ts",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint packages src --ext .ts,.tsx,.vue",
+    "typecheck": "vue-tsc --noEmit"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com/zhoulujun/v3-grid-layout.git "
+    "url": "git@github.com:zhoulujun/v3-grid-layout.git"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
   },
   "dependencies": {
-    "@blueking/eslint-config-bk": "^2.1.0-beta.7",
-    "@blueking/stylelint-config-bk": "^2.0.0",
     "@vueuse/core": "^8.1.2",
     "interactjs": "^1.10.11",
-    "mitt": "^3.0.0",
-    "webpack": "^4.46.0"
+    "mitt": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@babel/eslint-parser": "^7.18.9",
     "@babel/plugin-transform-runtime": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
+    "@blueking/eslint-config-bk": "^2.1.0-beta.7",
+    "@blueking/stylelint-config-bk": "^2.0.0",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-docs": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
@@ -55,12 +61,17 @@
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/babel-plugin-jsx": "^1.1.1",
     "@vue/compiler-sfc": "^3.2.37",
+    "@vue/test-utils": "^2.4.0",
     "babel-loader": "^8.2.5",
+    "jsdom": "^22.1.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.3",
     "vite-plugin-copy": "^0.1.6",
     "vite-plugin-dts": "^1.4.0",
     "vite-plugin-md": "^0.20.0",
-    "vue-tsc": "^0.39.2"
+    "vitest": "^0.34.0",
+    "vue": "^3.2.37",
+    "vue-tsc": "^0.39.2",
+    "webpack": "^4.46.0"
   }
 }

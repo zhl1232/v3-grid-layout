@@ -62,18 +62,13 @@ export default defineComponent({
     provide(isMirroredKey, toRef(props, 'isMirrored'))
     provide(rowHeightKey, toRef(props, 'rowHeight'))
     provide(maxRowsKey, toRef(props, 'maxRows'))
-    provide(colNumKey, toRef(props, 'colNum'))
+    const responsiveColNum = ref(props.colNum)
+    provide(colNumKey, responsiveColNum)
     provide(colWidthKey, toRef(props, 'colWidth'))
     provide(marginKey, toRef(props, 'margin'))
     provide(useCssTransformsKey, toRef(props, 'useCssTransforms'))
 
     const width = ref(100)
-    useResizeObserver(layoutContainer, entries => {
-      const entry = entries[0]
-      width.value = entry.contentRect.width
-      // 容器大小变化，更新容器高度
-      updateHeight()
-    })
     provide(containerWidthKey, width)
 
     const mergedStyle = ref({})
@@ -93,7 +88,7 @@ export default defineComponent({
     })
     let layouts: any = {}
     let lastBreakpoint: string | null = null // store last active breakpoint
-    let originalLayout: Layout // store original Layout
+    let originalLayout: Layout = cloneLayout(props.layout) // store original Layout
 
     const containerHeight = () => {
       if (!props.autoSize) return
@@ -167,7 +162,15 @@ export default defineComponent({
         emit('layout-updated', props.layout)
       }
     }
-    watch([() => props.layout.length, () => props.layout, () => props.margin, () => props.colWidth], () => {
+    watch(
+      () => props.layout,
+      () => {
+        layoutUpdate()
+      },
+      { deep: true },
+    )
+
+    watch([() => props.margin, () => props.colWidth], () => {
       layoutUpdate()
     })
 
@@ -175,11 +178,21 @@ export default defineComponent({
       () => props.responsive,
       () => {
         if (!props.responsive) {
+          responsiveColNum.value = props.colNum
           emit('update:layout', originalLayout)
-          // eventBus.emit('setColNum', props.colNum)
+        } else {
+          responsiveGridLayout()
         }
-        // onWindowResize()
       }
+    )
+
+    watch(
+      () => props.colNum,
+      (newVal) => {
+        if (!props.responsive) {
+          responsiveColNum.value = newVal
+        }
+      },
     )
 // finds or generates new layouts for set breakpoints
     const responsiveGridLayout = () => {
@@ -205,8 +218,18 @@ export default defineComponent({
       // new prop sync
       emit('update:layout', layout)
       lastBreakpoint = newBreakpoint
-      eventBus.emit('setColNum', getColsFromBreakpoint(newBreakpoint, props.responsiveCols))
+      responsiveColNum.value = newCols
+      eventBus.emit('setColNum', newCols)
     }
+
+    useResizeObserver(layoutContainer, entries => {
+      const entry = entries[0]
+      width.value = entry.contentRect.width
+      updateHeight()
+      if (props.responsive) {
+        responsiveGridLayout()
+      }
+    })
 
     const resizeEvent = (eventName: string, id: string | number, x: number, y: number, h: number, w: number) => {
       let l = getLayoutItem(props.layout, id) as LayoutItem
@@ -349,15 +372,17 @@ export default defineComponent({
       emit('layout-mounted', props.layout)
       nextTick(() => {
         validateLayout(props.layout)
-        originalLayout = props.layout
+        originalLayout = cloneLayout(props.layout)
         nextTick(() => {
-          // onWindowResize()
           initResponsiveFeatures()
-          // this.width = this.$el.offsetWidth;
-          // addWindowEventListener('resize', onWindowResize)
-          compact(props.layout, props.verticalCompact)
-          emit('layout-updated', props.layout)
+          if (props.responsive) {
+            responsiveGridLayout()
+          } else {
+            compact(props.layout, props.verticalCompact)
+            emit('layout-updated', props.layout)
+          }
           updateHeight()
+          emit('layout-ready', props.layout)
         })
       })
     })
