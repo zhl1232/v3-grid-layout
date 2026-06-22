@@ -177,7 +177,7 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const eventBus = mitt();
     const layoutContainer = ref(null);
     provide(eventBusKey, eventBus);
@@ -465,6 +465,12 @@ export default defineComponent({
         });
       });
     });
+
+    expose({
+      dragEvent,
+      resizeEvent,
+    });
+
     return {
       mergedStyle,
       isDragging,

@@ -47,7 +47,7 @@ export default defineComponent({
     'breakpoint-changed'
   ],
   props,
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
 
     let eventBus = inject(eventBusKey) as Emitter<Record<EventType, unknown>>;
     if (!eventBus) {
@@ -351,6 +351,12 @@ export default defineComponent({
         })
       })
     })
+
+    expose({
+      dragEvent,
+      resizeEvent,
+    })
+
     return {
       mergedStyle,
       isDragging,
