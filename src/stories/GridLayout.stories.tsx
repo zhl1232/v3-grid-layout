@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import GridLayout from '../../packages/GridLayout'
 import GridItem from '../../packages/GridItem'
 import { gridLayoutArgTypes } from './argTypes'
-import { collisionLayout, defaultLayout, gridItemSlot, pixelLayout } from './shared'
+import { collisionLayout, cloneStoryLayout, defaultLayout, gridItemSlot, pixelLayout } from './shared'
 
 const meta = {
   title: 'GridLayout',
@@ -23,22 +23,26 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const baseArgs = {
-  colNum: 12,
-  rowHeight: 30,
-  margin: [10, 10] as [number, number],
-  layout: defaultLayout,
-  isDraggable: true,
-  isResizable: true,
-  isMirrored: false,
-  verticalCompact: true,
-  useCssTransforms: true,
-  preventCollision: false,
-  responsive: false
+function createBaseArgs() {
+  return {
+    colNum: 12,
+    rowHeight: 30,
+    margin: [10, 10] as [number, number],
+    layout: cloneStoryLayout(defaultLayout),
+    isDraggable: true,
+    isResizable: true,
+    isMirrored: false,
+    verticalCompact: true,
+    useCssTransforms: true,
+    preventCollision: false,
+    responsive: false
+  }
 }
 
+type BaseArgs = ReturnType<typeof createBaseArgs>
+
 function renderGrid(extraItemAttrs: Record<string, unknown> = {}) {
-  return (args: typeof baseArgs) => ({
+  return (args: BaseArgs) => ({
     components: { GridLayout, GridItem },
     setup() {
       return { args, extraItemAttrs }
@@ -60,16 +64,13 @@ function renderGrid(extraItemAttrs: Record<string, unknown> = {}) {
 
 /** 基础可拖拽、可缩放的栅格布局。按 `D` 可打开 Controls 面板调整参数。 */
 export const Default: Story = {
-  args: baseArgs,
+  args: createBaseArgs(),
   render: renderGrid()
 }
 
 /** 部分元素设置 `static: true`，不可拖拽也不可缩放。 */
 export const StaticItems: Story = {
-  args: {
-    ...baseArgs,
-    layout: defaultLayout.map(item => ({ ...item }))
-  },
+  args: createBaseArgs(),
   parameters: {
     docs: {
       description: {
@@ -83,8 +84,8 @@ export const StaticItems: Story = {
 /** 开启 `preventCollision` 后，拖拽时元素只能移动到空白区域。 */
 export const PreventCollision: Story = {
   args: {
-    ...baseArgs,
-    layout: collisionLayout,
+    ...createBaseArgs(),
+    layout: cloneStoryLayout(collisionLayout),
     preventCollision: true
   },
   parameters: {
@@ -100,12 +101,12 @@ export const PreventCollision: Story = {
 /** 通过 `colWidth` 与 GridItem 的 `pixelWidth` / `pixelHeight` 实现固定像素尺寸。 */
 export const FixedPixelSize: Story = {
   args: {
-    ...baseArgs,
+    ...createBaseArgs(),
     colNum: 6,
     rowHeight: 60,
     colWidth: 60,
     margin: [8, 8] as [number, number],
-    layout: pixelLayout
+    layout: cloneStoryLayout(pixelLayout)
   },
   parameters: {
     docs: {
@@ -140,7 +141,7 @@ export const FixedPixelSize: Story = {
 
 /** 仅允许从 `.toolbox` 区域拖拽，避免误触内容区域。 */
 export const DragHandle: Story = {
-  args: baseArgs,
+  args: createBaseArgs(),
   parameters: {
     docs: {
       description: {
@@ -154,7 +155,7 @@ export const DragHandle: Story = {
 /** 关闭拖拽与缩放，作为只读布局展示。 */
 export const ReadOnly: Story = {
   args: {
-    ...baseArgs,
+    ...createBaseArgs(),
     isDraggable: false,
     isResizable: false
   },

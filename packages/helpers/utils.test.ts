@@ -70,4 +70,22 @@ describe('layout utils', () => {
     expect(() => validateLayout(sampleLayout)).not.toThrow()
     expect(() => validateLayout(null as unknown as Layout)).toThrow()
   })
+
+  it('compact is idempotent on storybook default layout subset', () => {
+    const layout: Layout = [
+      { x: 0, y: 0, w: 2, h: 2, i: '0', static: false },
+      { x: 2, y: 0, w: 2, h: 4, i: '1', static: true },
+      { x: 4, y: 0, w: 2, h: 5, i: '2', static: false },
+      { x: 6, y: 0, w: 2, h: 3, i: '3', static: false },
+      { x: 8, y: 0, w: 2, h: 3, i: '4', static: false },
+      { x: 10, y: 0, w: 2, h: 3, i: '5', static: false },
+      { x: 0, y: 5, w: 2, h: 5, i: '6', static: false }
+    ]
+    const snapshot = (items: Layout) =>
+      JSON.stringify(items.map(({ i, x, y, w, h, moved }) => ({ i, x, y, w, h, moved })))
+    compact(layout, true)
+    const afterFirst = snapshot(layout)
+    compact(layout, true)
+    expect(snapshot(layout)).toBe(afterFirst)
+  })
 })
