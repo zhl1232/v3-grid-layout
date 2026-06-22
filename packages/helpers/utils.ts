@@ -440,6 +440,7 @@ export const isResizableKey: InjectionKey<Ref<boolean>> = Symbol('isResizable');
 export const rowHeightKey: InjectionKey<Ref<number>> = Symbol('rowHeight');
 export const maxRowsKey: InjectionKey<Ref<number>> = Symbol('maxRows');
 export const colNumKey: InjectionKey<Ref<number>> = Symbol('colNum');
+export const colWidthKey: InjectionKey<Ref<number | null>> = Symbol('colWidth');
 export const containerWidthKey: InjectionKey<Ref<number>> = Symbol('containerWidth');
 export const marginKey: InjectionKey<Ref<number[]>> = Symbol('margin');
 export const useCssTransformsKey: InjectionKey<Ref<boolean>> = Symbol('useCssTransforms');

@@ -24,6 +24,14 @@ export const propsGridLayout = {
     default: 10,
   },
   /**
+   * 栅格每列的固定宽度，单位像素。设置后列宽不再随容器宽度自动分配，
+   * 可与 rowHeight 配合实现固定像素大小的栅格单元（如 60px 正方形）。
+   */
+  colWidth: {
+    type: Number as PropType<number | null>,
+    default: (): null => null,
+  },
+  /**
    * 最大行数
    */
   maxRows: {
@@ -179,5 +187,19 @@ export const propsGridItem = {
   resizeIgnoreFrom: {
     type: String,
     default: 'a, button',
+  },
+  /**
+   * 固定像素宽度。设置后该元素宽度不再随容器宽度变化，单位为像素。
+   */
+  pixelWidth: {
+    type: Number as PropType<number | null>,
+    default: (): null => null,
+  },
+  /**
+   * 固定像素高度。设置后该元素高度不再随 rowHeight 变化，单位为像素。
+   */
+  pixelHeight: {
+    type: Number as PropType<number | null>,
+    default: (): null => null,
   },
 };

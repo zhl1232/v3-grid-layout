@@ -16,6 +16,7 @@ import {
   rowHeightKey,
   maxRowsKey,
   colNumKey,
+  colWidthKey,
   containerWidthKey,
   marginKey,
   useCssTransformsKey,
@@ -62,6 +63,7 @@ export default defineComponent({
     provide(rowHeightKey, toRef(props, 'rowHeight'))
     provide(maxRowsKey, toRef(props, 'maxRows'))
     provide(colNumKey, toRef(props, 'colNum'))
+    provide(colWidthKey, toRef(props, 'colWidth'))
     provide(marginKey, toRef(props, 'margin'))
     provide(useCssTransformsKey, toRef(props, 'useCssTransforms'))
 
@@ -99,9 +101,17 @@ export default defineComponent({
       return bottom(props.layout) * (props.rowHeight + props.margin[1]) + props.margin[1] + buffer + 'px'
     }
 
+    const containerWidthStyle = () => {
+      if (props.colWidth && props.colWidth > 0) {
+        return props.colWidth * props.colNum + props.margin[0] * (props.colNum + 1) + 'px'
+      }
+      return undefined
+    }
+
     const updateHeight = () => {
       mergedStyle.value = {
-        height: containerHeight()
+        height: containerHeight(),
+        ...(containerWidthStyle() ? { width: containerWidthStyle() } : {}),
       }
     }
     // watch(width, (newVal, oldVal) => {
@@ -157,7 +167,7 @@ export default defineComponent({
         emit('layout-updated', props.layout)
       }
     }
-    watch([() => props.layout.length, () => props.layout, () => props.margin], () => {
+    watch([() => props.layout.length, () => props.layout, () => props.margin, () => props.colWidth], () => {
       layoutUpdate()
     })
 
