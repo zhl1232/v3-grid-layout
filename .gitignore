@@ -2,4 +2,5 @@
 .temp
 .cache
 dist
+storybook-static
 .idea

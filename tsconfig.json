@@ -21,6 +21,7 @@
     "skipLibCheck": true,
     "outDir": "dist",
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "types": [
       "vite/client", // if using vite
       // ...

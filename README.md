@@ -17,7 +17,7 @@ The original `vue-grid-layout` library has been abandoned for years and lacks of
 npm install vue-grid-layout-next
 ```
 
-`vue` ^3.2.0 is required as a peer dependency.
+`vue` ^3.5.0 is required as a peer dependency. Node.js >= 20.19 is required for development.
 
 ## Quick Start
 
@@ -72,6 +72,10 @@ app.component('GridItem', GridItem);
 | `npm run start` | Local demo on port 9018 |
 | `npm run build:lib` | Build library to `dist/` |
 | `npm run test` | Run unit tests |
+| `npm run lint` | Lint with oxlint (Oxc) |
+| `npm run format` | Format with oxfmt (Oxc) |
+| `npm run audit` | Audit all dependencies |
+| `npm run audit:prod` | Audit production dependencies only |
 | `npm run storybook` | Component documentation |
 
 ## License

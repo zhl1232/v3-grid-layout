@@ -9,27 +9,28 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       entryRoot: 'packages',
-      outDir: 'dist',
+      outDir: 'dist'
     }),
     vue(),
-    vueJsx(),
+    vueJsx()
   ],
   build: {
     outDir: 'dist',
     lib: {
       entry: resolve(__dirname, '../packages/index.ts'),
       name: 'VueGridLayoutNext',
-      fileName: (format) => `vue-grid-layout-next.${format === 'es' ? 'es' : 'umd'}.js`,
-      formats: ['es', 'umd'],
+      fileName: format => `vue-grid-layout-next.${format === 'es' ? 'es' : 'umd'}.js`,
+      formats: ['es', 'umd']
     },
     rollupOptions: {
       external: ['vue'],
       output: {
         exports: 'named',
+        assetFileNames: 'style.[ext]',
         globals: {
-          vue: 'Vue',
-        },
-      },
-    },
-  },
+          vue: 'Vue'
+        }
+      }
+    }
+  }
 })
