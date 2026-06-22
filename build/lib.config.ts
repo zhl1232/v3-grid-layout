@@ -26,6 +26,7 @@ export default defineConfig({
       external: ['vue'],
       output: {
         exports: 'named',
+        assetFileNames: 'style.[ext]',
         globals: {
           vue: 'Vue',
         },

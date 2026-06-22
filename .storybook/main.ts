@@ -1,12 +1,17 @@
-/** @type { import('@storybook/vue3-vite').StorybookConfig } */
-const config = {
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import { resolve } from 'path';
+import dts from 'vite-plugin-dts';
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import type { StorybookConfig } from '@storybook/vue3-vite';
+
+const config: StorybookConfig = {
   stories: [
     '../src/**/*.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
+    '@storybook/addon-docs',
   ],
   framework: {
     name: '@storybook/vue3-vite',
