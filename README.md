@@ -1,26 +1,26 @@
-# vue-grid-layout-next
+# v3-grid-layout
 
 A powerful, draggable, and resizable grid layout component built natively for **Vue 3** and **TypeScript**.
 
-[![npm version](https://img.shields.io/npm/v/vue-grid-layout-next.svg)](https://www.npmjs.com/package/vue-grid-layout-next)
+[![npm version](https://img.shields.io/npm/v/v3-grid-layout.svg)](https://www.npmjs.com/package/v3-grid-layout)
 [![GitHub license](https://img.shields.io/github/license/zhl1232/v3-grid-layout.svg)](LICENSE)
 
-> Also known as **v3-grid-layout** in documentation and legacy references.
+> npm 包名为 **`v3-grid-layout`**。项目开发期曾使用 `vue-grid-layout-next` 作为内部代号；npm 上的 `vue-grid-layout-next` 已被他人占用，因此发布统一使用 `v3-grid-layout`。
 
 **[📖 Live documentation (Storybook)](https://zhl1232.github.io/v3-grid-layout/)**
 
-## Why vue-grid-layout-next?
+## Why v3-grid-layout?
 
 The original [`vue-grid-layout`](https://github.com/jbaysolutions/vue-grid-layout) library has been abandoned for years and lacks official Vue 3 support. This project is a modernized successor with Composition API, TypeScript, and Vite-friendly builds.
 
 ## Install
 
 ```bash
-npm install vue-grid-layout-next
+npm install v3-grid-layout
 # or
-pnpm add vue-grid-layout-next
+pnpm add v3-grid-layout
 # or
-yarn add vue-grid-layout-next
+yarn add v3-grid-layout
 ```
 
 `vue` ^3.5.0 is required as a peer dependency. Node.js >= 20.19 is required for development.
@@ -32,8 +32,8 @@ yarn add vue-grid-layout-next
 ```ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import GridLayoutPlugin from 'vue-grid-layout-next'
-import 'vue-grid-layout-next/dist/style.css'
+import GridLayoutPlugin from 'v3-grid-layout'
+import 'v3-grid-layout/dist/style.css'
 
 createApp(App).use(GridLayoutPlugin).mount('#app')
 ```
@@ -43,9 +43,9 @@ createApp(App).use(GridLayoutPlugin).mount('#app')
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GridItem, GridLayout } from 'vue-grid-layout-next'
-import type { Layout } from 'vue-grid-layout-next'
-import 'vue-grid-layout-next/dist/style.css'
+import { GridItem, GridLayout } from 'v3-grid-layout'
+import type { Layout } from 'v3-grid-layout'
+import 'v3-grid-layout/dist/style.css'
 
 const layout = ref<Layout>([
   { x: 0, y: 0, w: 2, h: 2, i: '0' },
@@ -96,7 +96,7 @@ The full API reference (props, events, expose methods, and layout types) lives i
 ### Layout type
 
 ```ts
-import type { Layout, LayoutItem } from 'vue-grid-layout-next'
+import type { Layout, LayoutItem } from 'v3-grid-layout'
 
 const item: LayoutItem = { i: 'a', x: 0, y: 0, w: 2, h: 2 }
 const layout: Layout = [item]
@@ -124,6 +124,8 @@ npm run storybook  # component docs at http://localhost:6006
 | `npm run audit` | Audit all dependencies |
 | `npm run audit:prod` | Audit production dependencies only |
 | `npm run storybook` | Component documentation |
+
+发布新版本请参阅 [RELEASING.md](RELEASING.md)。
 
 ## Related Projects
 

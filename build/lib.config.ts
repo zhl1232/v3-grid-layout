@@ -18,8 +18,8 @@ export default defineConfig({
     outDir: 'dist',
     lib: {
       entry: resolve(__dirname, '../packages/index.ts'),
-      name: 'VueGridLayoutNext',
-      fileName: format => `vue-grid-layout-next.${format === 'es' ? 'es' : 'umd'}.js`,
+      name: 'V3GridLayout',
+      fileName: format => `v3-grid-layout.${format === 'es' ? 'es' : 'umd'}.js`,
       formats: ['es', 'umd']
     },
     rollupOptions: {
