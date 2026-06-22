@@ -12,6 +12,7 @@ import {
   rowHeightKey,
   maxRowsKey,
   colNumKey,
+  colWidthKey,
   containerWidthKey,
   marginKey,
   useCssTransformsKey,
@@ -32,6 +33,7 @@ export default defineComponent({
     const margin = inject(marginKey, ref([10, 10]));
     const maxRows = inject(maxRowsKey, ref(Infinity));
     const cols = inject(colNumKey, ref(12));
+    const fixedColWidth = inject(colWidthKey, ref(null));
     const useCssTransforms = inject(useCssTransformsKey, ref(true));
 
     const dragEventSet = ref(false);
@@ -231,7 +233,7 @@ export default defineComponent({
         createStyle();
       },
     );
-    watch([containerWidth, cols], () => {
+    watch([containerWidth, cols, fixedColWidth], () => {
       tryMakeResizable();
       createStyle();
       emitContainerResized();
@@ -274,7 +276,16 @@ export default defineComponent({
     // )
 
     // Helper for generating column width
-    const calcColWidth = () => (containerWidth.value - (margin.value[0] || 10) * (cols.value + 1)) / cols.value;
+    const calcColWidth = () => {
+      if (fixedColWidth.value && fixedColWidth.value > 0) {
+        return fixedColWidth.value;
+      }
+      return (containerWidth.value - (margin.value[0] || 10) * (cols.value + 1)) / cols.value;
+    };
+    const calcGridItemWHPx = (gridUnits: number, colOrRowSize: number, marginPx: number) => {
+      if (gridUnits === Infinity) return gridUnits;
+      return Math.round(colOrRowSize * gridUnits + Math.max(0, gridUnits - 1) * marginPx);
+    };
     const calcXY = (top: number, left: number) => {
       const colWidth = calcColWidth();
       // left = colWidth * x + margin * (x + 1)
@@ -374,27 +385,23 @@ export default defineComponent({
 
     function calcPosition(x: number, y: number, w: number, h: number, Rtl = renderRtl.value) {
       const colWidth = calcColWidth();
+      const width = props.pixelWidth ?? (w === Infinity ? w : calcGridItemWHPx(w, colWidth, margin.value[0]));
+      const height = props.pixelHeight ?? (h === Infinity ? h : calcGridItemWHPx(h, rowHeight.value, margin.value[1]));
       // add rtl support
       let out;
       if (Rtl) {
         out = {
           right: Math.round(colWidth * x + (x + 1) * margin.value[0]),
           top: Math.round(rowHeight.value * y + (y + 1) * margin.value[1]),
-          // 0 * Infinity === NaN, which causes problems with resize constriants;
-          // Fix this if it occurs.
-          // Note we do it here rather than later because Math.round(Infinity) causes deopt
-          width: w === Infinity ? w : Math.round(colWidth * w + Math.max(0, w - 1) * margin.value[0]),
-          height: h === Infinity ? h : Math.round(rowHeight.value * h + Math.max(0, h - 1) * margin.value[1]),
+          width,
+          height,
         };
       } else {
         out = {
           left: Math.round(colWidth * x + (x + 1) * margin.value[0]),
           top: Math.round(rowHeight.value * y + (y + 1) * margin.value[1]),
-          // 0 * Infinity === NaN, which causes problems with resize constriants;
-          // Fix this if it occurs.
-          // Note we do it here rather than later because Math.round(Infinity) causes deopt
-          width: w === Infinity ? w : Math.round(colWidth * w + Math.max(0, w - 1) * margin.value[0]),
-          height: h === Infinity ? h : Math.round(rowHeight.value * h + Math.max(0, h - 1) * margin.value[1]),
+          width,
+          height,
         };
       }
       return out;
@@ -558,6 +565,20 @@ export default defineComponent({
         createStyle();
       },
       // { immediate: true }
+    );
+    watch(
+      () => props.pixelWidth,
+      () => {
+        createStyle();
+        emitContainerResized();
+      },
+    );
+    watch(
+      () => props.pixelHeight,
+      () => {
+        createStyle();
+        emitContainerResized();
+      },
     );
 
     expose({
