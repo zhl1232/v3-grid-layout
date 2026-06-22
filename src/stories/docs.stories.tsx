@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/vue3';
-import GridLayout from '../../packages/GridLayout';
-import GridItem from '../../packages/GridItem';
-import type { Layout } from '../../packages/helpers/utils';
+import type { StoryObj } from '@storybook/vue3'
+import GridLayout from '../../packages/GridLayout'
+import GridItem from '../../packages/GridItem'
+import type { Layout } from '../../packages/helpers/utils'
 
 const layout: Layout = [
   { x: 0, y: 0, w: 2, h: 2, i: '0', static: false, minH: 5 },
@@ -13,21 +13,21 @@ const layout: Layout = [
   { x: 0, y: 5, w: 2, h: 5, i: '6', static: false },
   { x: 2, y: 5, w: 2, h: 5, i: '7', static: false },
   { x: 4, y: 5, w: 2, h: 5, i: '8', static: false },
-  { x: 6, y: 3, w: 2, h: 4, i: '9', static: true },
-];
+  { x: 6, y: 3, w: 2, h: 4, i: '9', static: true }
+]
 
 const meta = {
   title: '文档',
   component: GridLayout,
   tags: ['autodocs'],
   argTypes: {
-    layout: { control: false },
-  },
-};
+    layout: { control: false }
+  }
+}
 
-export default meta;
+export default meta
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
@@ -39,12 +39,12 @@ export const Default: Story = {
     isResizable: true,
     isMirrored: false,
     verticalCompact: true,
-    useCssTransforms: true,
+    useCssTransforms: true
   },
-  render: (args) => ({
+  render: args => ({
     components: { GridLayout, GridItem },
     setup() {
-      return { args };
+      return { args }
     },
     template: `
       <grid-layout v-bind="args">
@@ -64,6 +64,6 @@ export const Default: Story = {
           </div>
         </grid-item>
       </grid-layout>
-    `,
-  }),
-};
+    `
+  })
+}

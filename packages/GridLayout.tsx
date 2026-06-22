@@ -31,10 +31,10 @@ import {
 import GridItem from './GridItem'
 import { useResizeObserver } from '@vueuse/core'
 import { nextTick, onBeforeUnmount, onMounted, provide, reactive, ref, toRef, watch } from 'vue'
-import { propsGridLayout as props } from './props';
+import { propsGridLayout as props } from './props'
 import './GridLayout.css'
 import mitt from 'mitt'
-import { Emitter, EventType } from 'mitt';
+import { Emitter, EventType } from 'mitt'
 
 export default defineComponent({
   name: 'GridLayout',
@@ -49,8 +49,7 @@ export default defineComponent({
   ],
   props,
   setup(props, { emit, expose }) {
-
-    let eventBus = inject(eventBusKey) as Emitter<Record<EventType, unknown>>;
+    let eventBus = inject(eventBusKey) as Emitter<Record<EventType, unknown>>
     if (!eventBus) {
       eventBus = mitt<Record<EventType, unknown>>()
     }
@@ -106,7 +105,7 @@ export default defineComponent({
     const updateHeight = () => {
       mergedStyle.value = {
         height: containerHeight(),
-        ...(containerWidthStyle() ? { width: containerWidthStyle() } : {}),
+        ...(containerWidthStyle() ? { width: containerWidthStyle() } : {})
       }
     }
     // watch(width, (newVal, oldVal) => {
@@ -167,7 +166,7 @@ export default defineComponent({
       () => {
         layoutUpdate()
       },
-      { deep: true },
+      { deep: true }
     )
 
     watch([() => props.margin, () => props.colWidth], () => {
@@ -188,13 +187,13 @@ export default defineComponent({
 
     watch(
       () => props.colNum,
-      (newVal) => {
+      newVal => {
         if (!props.responsive) {
           responsiveColNum.value = newVal
         }
-      },
+      }
     )
-// finds or generates new layouts for set breakpoints
+    // finds or generates new layouts for set breakpoints
     const responsiveGridLayout = () => {
       const newBreakpoint = getBreakpointFromWidth(props.breakpoints, width.value)
       const newCols = getColsFromBreakpoint(newBreakpoint, props.responsiveCols)
@@ -286,15 +285,15 @@ export default defineComponent({
       if (eventName === 'resizeend') emit('layout-updated', props.layout)
     }
 
-// Accessible references of functions for removing in beforeDestroy
+    // Accessible references of functions for removing in beforeDestroy
     function resizeEventHandler({
-                                  eventType,
-                                  i,
-                                  x,
-                                  y,
-                                  h,
-                                  w
-                                }: {
+      eventType,
+      i,
+      x,
+      y,
+      h,
+      w
+    }: {
       eventType: string
       i: string | number
       x: number
@@ -336,13 +335,13 @@ export default defineComponent({
       if (eventName === 'dragend') emit('layout-updated', props.layout)
     }
     const dragEventHandler = ({
-                                eventType,
-                                i,
-                                x,
-                                y,
-                                h,
-                                w
-                              }: {
+      eventType,
+      i,
+      x,
+      y,
+      h,
+      w
+    }: {
       eventType: string
       i: string | number
       x: number
@@ -389,7 +388,7 @@ export default defineComponent({
 
     expose({
       dragEvent,
-      resizeEvent,
+      resizeEvent
     })
 
     return {
@@ -402,12 +401,12 @@ export default defineComponent({
   },
   render() {
     return (
-      <div ref='layoutContainer' class='vue-grid-layout' style={this.mergedStyle}>
+      <div ref="layoutContainer" class="vue-grid-layout" style={this.mergedStyle}>
         {this.$slots.default?.()}
         <GridItem
           v-show={this.isDragging}
-          ref='gridItem'
-          class='vue-grid-placeholder'
+          ref="gridItem"
+          class="vue-grid-placeholder"
           x={this.placeholder.x}
           y={this.placeholder.y}
           w={this.placeholder.w}

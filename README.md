@@ -72,6 +72,8 @@ app.component('GridItem', GridItem);
 | `npm run start` | Local demo on port 9018 |
 | `npm run build:lib` | Build library to `dist/` |
 | `npm run test` | Run unit tests |
+| `npm run lint` | Lint with oxlint (Oxc) |
+| `npm run format` | Format with oxfmt (Oxc) |
 | `npm run audit` | Audit all dependencies |
 | `npm run audit:prod` | Audit production dependencies only |
 | `npm run storybook` | Component documentation |

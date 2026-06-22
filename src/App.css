@@ -1,9 +1,16 @@
-.box{
-    display: flex; flex-direction: column; height: 100%;
+.box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
-.toolbox{
-    width: 100%; height: 20px; text-align: center; background-color: bisque
+.toolbox {
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  background-color: bisque;
 }
-.item{
-    height: 100%; text-align: center; background-color: #eee
+.item {
+  height: 100%;
+  text-align: center;
+  background-color: #eee;
 }
