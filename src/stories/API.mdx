@@ -1,0 +1,151 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+<Meta title="API 参考" />
+
+# API 参考
+
+## GridLayout
+
+### Props
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `layout` | `Layout` | —（必填） | 栅格布局数据，每项需含 `i`、`x`、`y`、`w`、`h` |
+| `autoSize` | `boolean` | `true` | 容器是否自动调整高度以容纳所有元素 |
+| `colNum` | `number` | `12` | 列数 |
+| `rowHeight` | `number` | `10` | 每行高度（px） |
+| `colWidth` | `number \| null` | `null` | 固定列宽（px），设置后不再随容器自适应 |
+| `maxRows` | `number` | `Infinity` | 最大行数 |
+| `margin` | `[number, number]` | `[10, 10]` | 元素间距 `[水平, 垂直]`（px） |
+| `isDraggable` | `boolean` | `true` | 是否可拖拽 |
+| `isResizable` | `boolean` | `true` | 是否可缩放 |
+| `isMirrored` | `boolean` | `false` | 是否 RTL 镜像 |
+| `useCssTransforms` | `boolean` | `true` | 是否用 CSS transform 定位 |
+| `verticalCompact` | `boolean` | `true` | 是否垂直压缩消除空隙 |
+| `responsive` | `boolean` | `false` | 是否启用响应式布局 |
+| `responsiveLayouts` | `object` | `{}` | 各断点初始布局，创建后修改无效 |
+| `breakpoints` | `object` | `{ lg:1200, md:996, sm:768, xs:480, xxs:0 }` | 断点宽度 |
+| `responsiveCols` | `object` | `{ lg:12, md:10, sm:6, xs:4, xxs:2 }` | 各断点列数 |
+| `preventCollision` | `boolean` | `false` | 为 `true` 时只能拖入空白区域 |
+
+### v-model
+
+| 绑定 | 说明 |
+|------|------|
+| `v-model:layout` | 双向绑定布局数组，拖拽/缩放结束后自动更新 |
+
+### Events
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `layout-created` | `(layout)` | 布局创建时 |
+| `layout-before-mount` | `(layout)` | 挂载前 |
+| `layout-mounted` | `(layout)` | 挂载后 |
+| `layout-updated` | `(layout)` | 布局更新后 |
+| `layout-ready` | `(layout)` | 初始化完成 |
+| `update:layout` | `(layout)` | `v-model:layout` 更新 |
+| `breakpoint-changed` | `(newBreakpoint, layout)` | 响应式断点切换时 |
+
+### Expose
+
+| 方法 | 说明 |
+|------|------|
+| `dragEvent(eventType, i, x, y, h, w)` | 外部拖入时手动触发拖拽事件 |
+| `resizeEvent(eventType, i, x, y, h, w)` | 外部拖入时手动触发缩放事件 |
+
+### Slots
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 放置 `GridItem` 子组件 |
+
+---
+
+## GridItem
+
+### Props
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `i` | `string \| number` | —（必填） | 唯一标识 |
+| `x` | `number` | —（必填） | 列位置 |
+| `y` | `number` | —（必填） | 行位置 |
+| `w` | `number` | —（必填） | 宽度（列数） |
+| `h` | `number` | —（必填） | 高度（行数） |
+| `static` | `boolean` | `false` | 静态元素，不可拖拽/缩放 |
+| `minW` / `minH` | `number` | `1` | 最小宽/高 |
+| `maxW` / `maxH` | `number` | `Infinity` | 最大宽/高 |
+| `isDraggable` | `boolean \| null` | `null` | 覆盖父级，继承时为 `null` |
+| `isResizable` | `boolean \| null` | `null` | 覆盖父级，继承时为 `null` |
+| `dragIgnoreFrom` | `string` | `'a, button'` | 拖拽忽略的选择器 |
+| `dragAllowFrom` | `string` | `''` | 仅允许从此选择器区域拖拽 |
+| `resizeIgnoreFrom` | `string` | `'a, button'` | 缩放忽略的选择器 |
+| `pixelWidth` | `number \| null` | `null` | 固定像素宽度 |
+| `pixelHeight` | `number \| null` | `null` | 固定像素高度 |
+
+### Events
+
+| 事件 | 参数 | 说明 |
+|------|------|------|
+| `move` | `(i, newX, newY)` | 拖拽中 |
+| `moved` | `(i, newX, newY)` | 拖拽结束 |
+| `resize` | `(i, newH, newW, newHPx, newWPx)` | 缩放中 |
+| `resized` | `(i, newH, newW, newHPx, newWPx)` | 缩放结束 |
+| `container-resized` | `(i, newH, newW, newHPx, newWPx)` | 容器尺寸变化（如 rowHeight 改变） |
+
+### Expose
+
+| 方法 | 说明 |
+|------|------|
+| `calcXY(top, left)` | 根据像素坐标计算栅格 `x, y` |
+
+### Slots
+
+| 插槽 | 说明 |
+|------|------|
+| `default` | 栅格单元内容 |
+
+---
+
+## Layout 数据类型
+
+```ts
+type LayoutItem = {
+  i: string | number
+  x: number
+  y: number
+  w: number
+  h: number
+  minW?: number
+  minH?: number
+  maxW?: number
+  maxH?: number
+  static?: boolean
+  moved?: boolean
+  isDraggable?: boolean
+  isResizable?: boolean
+}
+
+type Layout = LayoutItem[]
+```
+
+可从 `vue-grid-layout-next` 包导入：
+
+```ts
+import type { Layout, LayoutItem } from 'vue-grid-layout-next/dist/helpers/utils'
+```
+
+---
+
+## 注册方式
+
+```ts
+// 全局注册
+import GridLayoutPlugin from 'vue-grid-layout-next'
+import 'vue-grid-layout-next/dist/style.css'
+app.use(GridLayoutPlugin)
+
+// 局部注册
+import { GridLayout, GridItem } from 'vue-grid-layout-next'
+import 'vue-grid-layout-next/dist/style.css'
+```
