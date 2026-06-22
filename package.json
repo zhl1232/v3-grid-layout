@@ -34,9 +34,13 @@
     "audit:prod": "npm audit --omit=dev --audit-level=high",
     "audit": "npm audit --audit-level=high"
   },
+  "homepage": "https://zhl1232.github.io/v3-grid-layout/",
+  "bugs": {
+    "url": "https://github.com/zhl1232/v3-grid-layout/issues"
+  },
   "repository": {
     "type": "git",
-    "url": "git@github.com:zhoulujun/v3-grid-layout.git"
+    "url": "https://github.com/zhl1232/v3-grid-layout.git"
   },
   "engines": {
     "node": ">=20.19"
