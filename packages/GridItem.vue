@@ -94,7 +94,7 @@ export default defineComponent({
     },
   },
   emits: ['container-resized', 'resize', 'resized', 'move', 'moved'],
-  setup(props, { emit }) {
+  setup(props, { emit, expose }) {
     const eventBus = inject(eventBusKey) as Emitter<Record<EventType, unknown>>;
     const containerWidth = inject(containerWidthKey, ref(100));
     const rowHeight = inject(rowHeightKey, ref(10));
@@ -628,6 +628,11 @@ export default defineComponent({
       },
       // { immediate: true }
     );
+
+    expose({
+      calcXY,
+    });
+
     return {
       classObj,
       style,
