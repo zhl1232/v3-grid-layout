@@ -21,17 +21,21 @@
   "description": "Vue 3 draggable and resizable grid layout component library",
   "scripts": {
     "start": "vite --host=localhost --port=9018",
-    "build:doc": "build-storybook",
+    "build:doc": "STORYBOOK_DISABLE_TELEMETRY=1 storybook build",
     "build:lib": "vue-tsc --noEmit && vite build --config ./build/lib.config.ts",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "STORYBOOK_DISABLE_TELEMETRY=1 storybook dev -p 6006",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint packages src --ext .ts,.tsx,.vue",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "audit:prod": "npm audit --omit=dev --audit-level=high"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:zhoulujun/v3-grid-layout.git"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "peerDependencies": {
     "vue": "^3.2.0"
@@ -42,36 +46,34 @@
     "mitt": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.9",
-    "@babel/eslint-parser": "^7.18.9",
-    "@babel/plugin-transform-runtime": "^7.18.9",
-    "@babel/preset-env": "^7.18.9",
+    "@babel/core": "^7.26.0",
+    "@babel/eslint-parser": "^7.26.0",
+    "@babel/plugin-transform-runtime": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@blueking/eslint-config-bk": "^2.1.0-beta.7",
     "@blueking/stylelint-config-bk": "^2.0.0",
-    "@storybook/addon-actions": "^6.5.9",
-    "@storybook/addon-docs": "^6.5.9",
-    "@storybook/addon-essentials": "^6.5.9",
-    "@storybook/addon-links": "^6.5.9",
-    "@storybook/builder-vite": "^0.2.2",
-    "@storybook/vue3": "^6.5.9",
-    "@types/node": "^16.11.12",
+    "@storybook/addon-essentials": "^8.6.0",
+    "@storybook/addon-links": "^8.6.0",
+    "@storybook/blocks": "^8.6.0",
+    "@storybook/vue3-vite": "^8.6.0",
+    "@types/node": "^20.17.0",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
-    "@vitejs/plugin-vue": "^3.0.1",
-    "@vitejs/plugin-vue-jsx": "^2.0.0",
-    "@vue/babel-plugin-jsx": "^1.1.1",
-    "@vue/compiler-sfc": "^3.2.37",
+    "@vitejs/plugin-vue": "^5.2.0",
+    "@vitejs/plugin-vue-jsx": "^4.1.0",
+    "@vue/babel-plugin-jsx": "^1.2.0",
+    "@vue/compiler-sfc": "^3.5.0",
     "@vue/test-utils": "^2.4.0",
-    "babel-loader": "^8.2.5",
-    "jsdom": "^22.1.0",
-    "typescript": "^4.7.4",
-    "vite": "^3.0.3",
+    "babel-loader": "^9.2.0",
+    "jsdom": "^25.0.0",
+    "storybook": "^8.6.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0",
     "vite-plugin-copy": "^0.1.6",
-    "vite-plugin-dts": "^1.4.0",
+    "vite-plugin-dts": "^4.3.0",
     "vite-plugin-md": "^0.20.0",
-    "vitest": "^0.34.0",
-    "vue": "^3.2.37",
-    "vue-tsc": "^0.39.2",
-    "webpack": "^4.46.0"
+    "vitest": "^2.1.0",
+    "vue": "^3.5.0",
+    "vue-tsc": "^2.2.0"
   }
 }
