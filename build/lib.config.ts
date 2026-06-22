@@ -5,22 +5,31 @@ import dts from 'vite-plugin-dts'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
-    plugins: [dts(), vue(), vueJsx()],
-    build: {
-        outDir: 'dist',
-        lib: {
-            entry: resolve(__dirname, '../packages/index.ts'),
-            name: 'v3-grid-layout'
+  plugins: [
+    dts({
+      insertTypesEntry: true,
+      entryRoot: 'packages',
+      outDir: 'dist',
+    }),
+    vue(),
+    vueJsx(),
+  ],
+  build: {
+    outDir: 'dist',
+    lib: {
+      entry: resolve(__dirname, '../packages/index.ts'),
+      name: 'VueGridLayoutNext',
+      fileName: (format) => `vue-grid-layout-next.${format === 'es' ? 'es' : 'umd'}.js`,
+      formats: ['es', 'umd'],
+    },
+    rollupOptions: {
+      external: ['vue'],
+      output: {
+        exports: 'named',
+        globals: {
+          vue: 'Vue',
         },
-        rollupOptions: {
-            // 确保外部化处理那些你不想打包进库的依赖
-            external: ['vue'],
-            output: {
-                // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
-                globals: {
-                    vue: 'Vue'
-                }
-            }
-        }
-    }
+      },
+    },
+  },
 })

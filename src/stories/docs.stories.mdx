@@ -1,7 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable } from '@storybook/addon-docs'
 import { ref } from 'vue'
-import GridLayout from '../../packages/GridLayout.vue'
-import GridItem from '../../packages/GridItem.vue'
+import GridLayout from '../../packages/GridLayout'
+import GridItem from '../../packages/GridItem'
 
 
 <Meta
@@ -77,7 +77,7 @@ export const Template = args => ({
 TypeScript 下使用
 
 ```ts
-import { Layout } from 'ant/dist/packages/GridLayout/src/helpers/utils'
+import type { Layout } from '../../packages/helpers/utils'
 const layout = reactive<Layout>([
   { x: 0, y: 0, w: 2, h: 2, i: '0', static: false, minH: 5 },
   { x: 2, y: 0, w: 2, h: 4, i: '1', static: true },

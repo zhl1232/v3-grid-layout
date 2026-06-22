@@ -129,12 +129,12 @@ export const propsGridLayout = {
 
 export const propsGridItem = {
   isDraggable: {
-    type: Boolean,
-    default: false,
+    type: Boolean as PropType<boolean | null>,
+    default: (): null => null,
   },
   isResizable: {
-    type: Boolean,
-    default: false,
+    type: Boolean as PropType<boolean | null>,
+    default: (): null => null,
   },
   static: {
     type: Boolean,

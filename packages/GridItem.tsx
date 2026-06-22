@@ -1,4 +1,4 @@
-import { defineComponent, computed, inject, nextTick, onMounted, reactive, ref, toRef, watch } from 'vue';
+import { defineComponent, computed, inject, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import type { Interactable } from '@interactjs/core/Interactable';
 import interact from 'interactjs';
 import {
@@ -19,6 +19,7 @@ import {
   isMirroredKey,
 } from './helpers/utils';
 import { createCoreData, getControlPosition } from './helpers/draggable-utils';
+import { useInheritedBoolean } from './helpers/inherit-boolean';
 import { Emitter, EventType } from 'mitt';
 import './GridItem.css';
 import { propsGridItem as props } from './props';
@@ -91,7 +92,7 @@ export default defineComponent({
     /**
          * 是否可拖拽
          */
-    const draggable = toRef(props, 'isDraggable').value ? toRef(props, 'isDraggable') : inject(isDraggableKey, ref(true));
+    const draggable = useInheritedBoolean(props.isDraggable, isDraggableKey);
     nextTick(() => {
       watch(
         draggable,
@@ -107,11 +108,11 @@ export default defineComponent({
          */
     function tryMakeResizable() {
       interactObj = interactObj ?? interact(itemContainer.value as HTMLElement);
-      if (draggable.value && !props.static) {
+      if (resizable.value && !props.static) {
         const maximum = calcPosition(0, 0, props.maxW, props.maxH);
         const minimum = calcPosition(0, 0, props.minW, props.minH);
         const opts = {
-          preserveAspectRatio: true,
+          preserveAspectRatio: false,
           edges: {
             left: renderRtl.value && `.${resizableHandleClass.value.trim().replace(' ', '.')}`,
             right: renderRtl.value ? false : `.${resizableHandleClass.value.trim().replace(' ', '.')}`,
@@ -148,7 +149,7 @@ export default defineComponent({
          */
     const isResizing = ref(false);
     // 是否可缩放
-    const resizable = toRef(props, 'isResizable').value ? toRef(props, 'isResizable') : inject(isResizableKey, ref(true));
+    const resizable = useInheritedBoolean(props.isResizable, isResizableKey);
     nextTick(() => {
       watch(
         resizable,
@@ -192,7 +193,7 @@ export default defineComponent({
       }
       let _style = null;
       // CSS Transforms support (default)
-      if (useCssTransforms) {
+      if (useCssTransforms.value) {
         // Add rtl support
         if (renderRtl.value) {
           _style = setTransformRtl(pos.top, pos.right as number, pos.width, pos.height);
@@ -210,15 +211,18 @@ export default defineComponent({
       }
       style.data = _style;
     };
+    let compactHandler: () => void;
     onMounted(() => {
       createStyle();
-      const compact = () => {
+      compactHandler = () => {
         createStyle();
       };
-      const compactHandler = () => {
-        compact();
-      };
       eventBus.on('compact', compactHandler);
+    });
+    onBeforeUnmount(() => {
+      if (compactHandler) {
+        eventBus.off('compact', compactHandler);
+      }
     });
 
     const resizableAndNotStatic = computed(() => resizable.value && !props.static);
@@ -262,18 +266,10 @@ export default defineComponent({
       return 'vue-resizable-handle';
     });
 
-    // TODO layout margin 触发变化
-    // watch(
-    //   () => attrs.margin,
-    //   (LayoutMargin: number[]) => {
-    //     if (!LayoutMargin || (LayoutMargin[0] === margin[0] && LayoutMargin[1] === margin[1])) {
-    //       return
-    //     }
-    //     margin = LayoutMargin.map(m => Number(m))
-    //     createStyle()
-    //     emitContainerResized()
-    //   }
-    // )
+    watch(margin, () => {
+      createStyle();
+      emitContainerResized();
+    }, { deep: true });
 
     // Helper for generating column width
     const calcColWidth = () => {
