@@ -14,6 +14,11 @@ export const defaultLayout: Layout = [
   { x: 6, y: 3, w: 2, h: 4, i: '9', static: true }
 ]
 
+/** 为 Story 创建独立布局副本，避免 autodocs 多实例共享同一引用 */
+export function cloneStoryLayout(layout: Layout): Layout {
+  return layout.map(item => ({ ...item }))
+}
+
 /** 固定像素尺寸示例布局 */
 export const pixelLayout: Layout = [
   { x: 0, y: 0, w: 1, h: 1, i: 'a' },

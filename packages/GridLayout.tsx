@@ -103,9 +103,15 @@ export default defineComponent({
     }
 
     const updateHeight = () => {
+      const nextHeight = containerHeight()
+      const nextWidth = containerWidthStyle()
+      const prev = mergedStyle.value as { height?: string; width?: string }
+      if (prev.height === nextHeight && prev.width === nextWidth) {
+        return
+      }
       mergedStyle.value = {
-        height: containerHeight(),
-        ...(containerWidthStyle() ? { width: containerWidthStyle() } : {})
+        height: nextHeight,
+        ...(nextWidth ? { width: nextWidth } : {})
       }
     }
     // watch(width, (newVal, oldVal) => {
@@ -139,8 +145,11 @@ export default defineComponent({
       // clear layouts
       layouts = Object.assign({}, props.responsiveLayouts)
     }
+    let isLayoutUpdating = false
     const layoutUpdate = () => {
-      if (props.layout !== undefined) {
+      if (props.layout === undefined || isLayoutUpdating) return
+      isLayoutUpdating = true
+      try {
         if (props.layout.length !== originalLayout.length) {
           const diff = findDifference(props.layout, originalLayout)
           if (diff.length > 0) {
@@ -156,9 +165,20 @@ export default defineComponent({
           }
           initResponsiveFeatures()
         }
+        const before = cloneLayout(props.layout)
         compact(props.layout, props.verticalCompact)
         updateHeight()
-        emit('layout-updated', props.layout)
+        const changed = before.some(item => {
+          const next = getLayoutItem(props.layout, item.i)
+          return !next || item.x !== next.x || item.y !== next.y || item.w !== next.w || item.h !== next.h
+        })
+        if (changed) {
+          emit('layout-updated', props.layout)
+        }
+      } finally {
+        nextTick(() => {
+          isLayoutUpdating = false
+        })
       }
     }
     watch(
@@ -223,7 +243,11 @@ export default defineComponent({
 
     useResizeObserver(layoutContainer, entries => {
       const entry = entries[0]
-      width.value = entry.contentRect.width
+      const newWidth = entry.contentRect.width
+      if (newWidth === width.value) {
+        return
+      }
+      width.value = newWidth
       updateHeight()
       if (props.responsive) {
         responsiveGridLayout()
