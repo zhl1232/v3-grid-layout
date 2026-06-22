@@ -2,7 +2,7 @@ import { Meta } from '@storybook/addon-docs/blocks'
 
 <Meta title="说明" />
 
-# vue-grid-layout-next
+# v3-grid-layout
 
 Vue 3 可拖拽、可缩放的栅格布局组件库，基于 [interact.js](https://interactjs.io/) 实现。
 
@@ -19,11 +19,11 @@ Vue 3 可拖拽、可缩放的栅格布局组件库，基于 [interact.js](https
 ## 安装
 
 ```bash
-npm install vue-grid-layout-next
+npm install v3-grid-layout
 # 或
-pnpm add vue-grid-layout-next
+pnpm add v3-grid-layout
 # 或
-yarn add vue-grid-layout-next
+yarn add v3-grid-layout
 ```
 
 需要 `vue` ^3.5.0 作为 peer dependency。
@@ -35,8 +35,8 @@ yarn add vue-grid-layout-next
 ```js
 import { createApp } from 'vue'
 import App from './App.vue'
-import GridLayoutPlugin from 'vue-grid-layout-next'
-import 'vue-grid-layout-next/dist/style.css'
+import GridLayoutPlugin from 'v3-grid-layout'
+import 'v3-grid-layout/dist/style.css'
 
 createApp(App).use(GridLayoutPlugin).mount('#app')
 ```
@@ -46,9 +46,9 @@ createApp(App).use(GridLayoutPlugin).mount('#app')
 ```vue
 <script setup lang="ts">
 import { ref } from 'vue'
-import { GridItem, GridLayout } from 'vue-grid-layout-next'
-import type { Layout } from 'vue-grid-layout-next'
-import 'vue-grid-layout-next/dist/style.css'
+import { GridItem, GridLayout } from 'v3-grid-layout'
+import type { Layout } from 'v3-grid-layout'
+import 'v3-grid-layout/dist/style.css'
 
 const layout = ref<Layout>([
   { x: 0, y: 0, w: 2, h: 2, i: '0' },
