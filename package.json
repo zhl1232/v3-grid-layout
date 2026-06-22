@@ -57,7 +57,7 @@
     "@vitejs/plugin-vue-jsx": "^5.1.5",
     "@vue/compiler-sfc": "^3.5.13",
     "@vue/test-utils": "^2.4.6",
-    "jsdom": "^26.1.0",
+    "jsdom": "^29.1.1",
     "oxfmt": "^0.55.0",
     "oxlint": "^1.70.0",
     "storybook": "^10.4.6",
