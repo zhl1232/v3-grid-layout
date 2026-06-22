@@ -1,12 +1,18 @@
 # 发布指南
 
-## 一次性配置
+## 一次性配置（推荐：Trusted Publishing）
 
-在 GitHub 仓库 **Settings → Secrets and variables → Actions** 中添加：
+在 [npm 包设置页](https://www.npmjs.com/package/v3-grid-layout/settings) 配置 **Trusted Publisher**，让 GitHub Actions 通过 OIDC 直接发布，无需 `NPM_TOKEN`：
 
-| Secret | 说明 |
-|--------|------|
-| `NPM_TOKEN` | [npm Access Token](https://www.npmjs.com/settings/~tokens)（Automation 类型，需 publish 权限） |
+| 字段 | 值 |
+|------|-----|
+| Provider | GitHub Actions |
+| Repository owner | `zhl1232` |
+| Repository name | `v3-grid-layout` |
+| Workflow filename | `release.yml` |
+| Environment name | 留空 |
+
+路径：**npm 包页 → Settings → Publishing access → Trusted publishers → Add**
 
 仓库 **About** 建议填写：
 
@@ -15,6 +21,10 @@
 | Description | Vue 3 draggable and resizable grid layout component library |
 | Website | https://zhl1232.github.io/v3-grid-layout/ |
 | Topics | `vue3`, `vue`, `grid-layout`, `typescript`, `draggable`, `resizable`, `storybook` |
+
+### 备选：NPM_TOKEN
+
+若不用 Trusted Publishing，可在 GitHub **Settings → Secrets → Actions → Repository secrets** 添加 `NPM_TOKEN`（Granular token，需 **Read and write** + **Bypass 2FA**），并在 workflow 中恢复 `NODE_AUTH_TOKEN` 环境变量。
 
 ## 发布流程
 
